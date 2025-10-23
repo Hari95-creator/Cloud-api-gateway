@@ -46,6 +46,10 @@ public class ApiGateway {
                 route(p -> p.path("/conversion/**")
                         .filters(f -> f.
                                 rewritePath("/conversion/(?<segment>.*)", "/${segment}")).
+                        uri("lb://currency-conversion"))
+                .route(p -> p.path("/currency/exchange/**").
+                        uri("lb://currency-exchange")).
+                route(p -> p.path("/currency/conversion-feign/**").
                         uri("lb://currency-conversion")).
                 build();
     }
