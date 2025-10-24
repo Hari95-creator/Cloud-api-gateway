@@ -50,6 +50,11 @@ public class ApiGateway {
                 .route(p -> p.path("/currency/exchange/**").
                         uri("lb://currency-exchange")).
                 route(p -> p.path("/currency/conversion-feign/**").
+                        uri("lb://currency-conversion"))
+                .route(p->p.path("/currency/conversion/**")
+                        .filters(f->f.circuitBreaker(config ->
+                                config.setName("heart-beat").
+                                        setFallbackUri("forward:/circuit-breaker/fallback/conversion"))).
                         uri("lb://currency-conversion")).
                 build();
     }
