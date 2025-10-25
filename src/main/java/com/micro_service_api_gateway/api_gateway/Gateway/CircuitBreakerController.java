@@ -19,7 +19,7 @@ public class CircuitBreakerController {
     @Retry(name = "heart-beat",fallbackMethod = "hardCordedMethod")
     public String sampleApi() {
 
-        logger.info("Sample Api");
+        logger.info("Conversion service is down ");
         ResponseEntity<String> response = new RestTemplate().getForEntity("http://localhost:5050", String.class);
 
         return response.getBody();
